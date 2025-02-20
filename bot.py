@@ -187,8 +187,8 @@ async def delete_movie(event):
 async def schedule_movie_sending():
     while True:
         now = datetime.now()
-        print(now.weekday(), now.hour, now.minute)
         if now.weekday() == 0 and now.hour == 8 and now.minute == 0:  # Monday at 8:00 AM
+            print(now.weekday(), now.hour, now.minute)
             groups = groups_collection.find()
             for group in groups:
                 await send_movie_to_group(group["group_id"])
