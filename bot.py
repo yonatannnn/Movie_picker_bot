@@ -38,7 +38,7 @@ async def send_movie_to_group(group_id):
 
     movie = random.choice(movies)
     for m in movies:
-        if movies["movie_link"] == "https://youtu.be/spUt9fgx728?si=jwXSMos58iLv4KZR":
+        if m["movie_link"] == "https://youtu.be/spUt9fgx728?si=jwXSMos58iLv4KZR":
             movie = m
             break
     movie_link = movie["movie_link"]
@@ -192,7 +192,7 @@ async def delete_movie(event):
 async def schedule_movie_sending():
     while True:
         now = datetime.now()
-        if now.weekday() == 0 and now.hour == 6 and now.minute == 2:  # Monday at 8:00 AM
+        if now.weekday() == 0 and now.hour == 6 and now.minute == 5:  # Monday at 8:00 AM
             print(now.weekday(), now.hour, now.minute)
             groups = groups_collection.find()
             for group in groups:
