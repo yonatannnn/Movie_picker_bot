@@ -123,6 +123,8 @@ async def add_movie(event):
     })
     await event.reply(f"Movie added to group: {group['group_name']}")
 
+
+
 @client.on(events.NewMessage(pattern='/groups'))
 async def list_groups(event):
     user_groups = groups_collection.find({"members": event.sender_id})
@@ -182,12 +184,18 @@ async def delete_movie(event):
     if not movie_deleted:
         await event.reply("Movie not found in any of your groups.")
 
+@client.on(events.NewMessage(pattern="!replace"))  # Use your own trigger
+async def replace_recent_text(event):
+    async for message in client.iter_messages(event.chat_id, limit=1):
+        await message.delete()  # Delete the most recent message (from any user)
+    
+    await schedule_movie_sending()  # Send a new message
+
 
 # Schedule weekly movie sending
 async def schedule_movie_sending():
     while True:
         now = datetime.now()
-        print(now.weekday(), now.hour, now.minute)
         if now.weekday() == 0 and now.hour == 4 and now.minute == 0:  # Monday at 8:00 AM
             print(now.weekday(), now.hour, now.minute)
             groups = groups_collection.find()
