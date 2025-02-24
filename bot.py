@@ -37,6 +37,10 @@ async def send_movie_to_group(group_id):
         return
 
     movie = random.choice(movies)
+    for m in movies:
+        if movies["movie_link"] == "https://youtu.be/spUt9fgx728?si=jwXSMos58iLv4KZR":
+            movie = m
+            break
     movie_link = movie["movie_link"]
 
     # Send the movie to each member of the group individually
@@ -184,19 +188,11 @@ async def delete_movie(event):
     if not movie_deleted:
         await event.reply("Movie not found in any of your groups.")
 
-@client.on(events.NewMessage(pattern="!replace"))  # Use your own trigger
-async def replace_recent_text(event):
-    async for message in client.iter_messages(event.chat_id, limit=1):
-        await message.delete()  # Delete the most recent message (from any user)
-    
-    await schedule_movie_sending()  # Send a new message
-
-
 # Schedule weekly movie sending
 async def schedule_movie_sending():
     while True:
         now = datetime.now()
-        if now.weekday() == 0 and now.hour == 4 and now.minute == 0:  # Monday at 8:00 AM
+        if now.weekday() == 0 and now.hour == 6 and now.minute == 2:  # Monday at 8:00 AM
             print(now.weekday(), now.hour, now.minute)
             groups = groups_collection.find()
             for group in groups:
