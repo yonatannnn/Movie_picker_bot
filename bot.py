@@ -188,7 +188,7 @@ async def schedule_movie_sending():
     while True:
         now = datetime.now()
         print(now.weekday(), now.hour, now.minute)
-        if now.weekday() == 0 and now.hour == 5 and now.minute == 20:  # Monday at 8:00 AM
+        if now.weekday() == 0 and now.hour == 4 and now.minute == 0:  # Monday at 8:00 AM
             print(now.weekday(), now.hour, now.minute)
             groups = groups_collection.find()
             for group in groups:
